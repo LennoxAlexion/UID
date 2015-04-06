@@ -1,0 +1,24 @@
+package DTOs;
+
+public class UserData {
+	private String USERNAME;
+	private String UID;
+	private String ROLE;
+	private String NAME;
+	
+	public void setUsername(String USERNAME){
+		this.USERNAME=USERNAME;
+	}
+	public void setUID(String UID){
+		this.UID=UID;
+	}
+	public void setUserRole(String ROLE){
+		this.ROLE=ROLE;
+	}
+	public void setName(String NAME){
+		this.NAME=NAME;
+	}
+	
+	
+
+}

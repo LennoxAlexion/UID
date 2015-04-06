@@ -1,0 +1,33 @@
+package Utils;
+
+import java.util.ArrayList;
+
+import DTOs.Roles;
+import android.content.Context;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+public class DropDownInflator {
+	Context mContext;
+	Spinner spin;
+	
+	private void DropDownInflator(Context mContext, Spinner spin) {
+		// TODO Auto-generated method stub
+		this.mContext=mContext;
+		this.spin=spin;
+	}
+	void populateSpinner(){
+		ArrayList<String> Membership = Roles.getRoles();
+		
+		
+		
+		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(
+				mContext, android.R.layout.simple_spinner_item,
+				Membership);
+		spinnerAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		// attaching data adapter to spinner
+		spin.setAdapter(spinnerAdapter);
+	}
+}

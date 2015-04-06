@@ -1,0 +1,50 @@
+package aaap.uid_project.Activities;
+
+import aaap.uid_project.R;
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
+public class ScanResultSuccess extends Activity{
+	
+	private TextView FirstName;
+	private TextView LastName;
+	private TextView Uid;
+	private TextView BloodGroup;
+	private TextView Address;
+	
+	private String FIRSTNAME;
+	private String LASTNAME;
+	private String UID;
+	private String BLOODGROUP;
+	private String ADDRESS;
+	
+	private String ScannedText;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_qr_result_success);
+		
+		ScannedText = getIntent().getStringExtra("SCANNED_TEXT");
+		/*
+		 * Call Function to DECODE QR and separate to String Fields here.
+		 * 
+		 * */
+		FirstName = (TextView) findViewById(R.id.TextView_qr_result_FirstName);
+		LastName = (TextView) findViewById(R.id.TextView_qr_result_LastName);
+		BloodGroup = (TextView) findViewById(R.id.TextView_qr_result_BloodGroup);
+		Address = (TextView) findViewById(R.id.TextView_qr_result_Address);
+		
+		
+		Log.e("Scanned Text: ", "" + ScannedText);
+		Uid.setText(""+ScannedText);
+		
+		
+		
+		
+	}
+
+}

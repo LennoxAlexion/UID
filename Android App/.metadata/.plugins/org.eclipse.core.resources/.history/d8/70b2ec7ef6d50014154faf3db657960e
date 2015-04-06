@@ -1,0 +1,16 @@
+package aaap.uid_project.Activities;
+
+import aaap.uid_project.R;
+import android.app.Activity;
+import android.os.Bundle;
+
+public class ScanResultSuccess extends Activity{
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_qr_result_success);
+	}
+
+}

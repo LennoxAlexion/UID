@@ -1,0 +1,37 @@
+package aaap.uid_project.DTOs;
+
+import aaap.uid_project.Utils.SQLiteLoginHandler;
+import android.content.Context;
+
+public class LoggedInUserData {
+	private String USERNAME;
+	private String UID;
+	private String ROLE;
+	private String NAME;
+	private Context mContext;
+	public LoggedInUserData(Context mContext) {
+		// TODO Auto-generated constructor stub
+		this.mContext = mContext;
+	}
+	public void setLoggedInUserDetails(){
+		SQLiteLoginHandler db = new SQLiteLoginHandler()
+		
+		
+	}
+	
+	public String getUsername(){
+		return this.USERNAME;
+	}
+	public String getUID(){
+		return this.UID;
+	}
+	public String getUserRole(){
+		return this.ROLE;
+	}
+	public String getName(){
+		return this.NAME;
+	}
+	
+	
+
+}

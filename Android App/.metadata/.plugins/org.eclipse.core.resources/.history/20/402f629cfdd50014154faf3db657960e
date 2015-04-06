@@ -1,0 +1,64 @@
+package aaap.uid_project.Activities;
+
+import java.util.HashMap;
+
+import aaap.uid_project.R;
+import aaap.uid_project.Utils.SQLiteLoginHandler;
+import aaap.uid_project.Utils.SessionManager;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class SecondPageActivity extends Activity{
+
+	private Button LogoutB;
+	private TextView Username;
+	private TextView Name;
+	private TextView Role;
+	private HashMap<String, String> LoggedInUserData;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	setContentView(R.layout.activity_sec_page);
+	LogoutB = (Button) findViewById(R.id.Button_Logout);
+	Username = (TextView) findViewById(R.id.TextView_Username);
+	Name = (TextView) findViewById(R.id.TextView_Name);
+	Role = (TextView) findViewById(R.id.TextView_Role);
+	
+	
+	final SessionManager session = new SessionManager(getApplicationContext());
+	final SQLiteLoginHandler db = new SQLiteLoginHandler(getApplicationContext());
+	
+	
+	LoggedInUserData = db.getUserDetails();
+	Log.d("Hashmap of LoggedIn user", LoggedInUserData.toString());
+	Username.setText(""+LoggedInUserData.get("username"));
+	Name.setText(""+LoggedInUserData.get("name"));
+	Role.setText(""+LoggedInUserData.get("role"));
+	
+	
+	LogoutB.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+			session.setLogin(false);
+			db.deleteUsers();
+			Toast.makeText(getApplicationContext(), "Successfully Logged Out", Toast.LENGTH_LONG);
+			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+			startActivity(intent);
+			finish();
+		}
+	});
+	
+	
+	}
+}

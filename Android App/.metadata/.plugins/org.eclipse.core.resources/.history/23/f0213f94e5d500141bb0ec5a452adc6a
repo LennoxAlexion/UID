@@ -1,0 +1,49 @@
+package aaap.uid_project.DTOs;
+
+import java.util.HashMap;
+
+import aaap.uid_project.Utils.SQLiteLoginHandler;
+import android.content.Context;
+import android.util.Log;
+
+public class LoggedInUserData {
+	private String USERNAME;
+	private String UID;
+	private String ROLE;
+	private String NAME;
+	private Context mContext;
+
+	public LoggedInUserData(Context mContext) {
+		// TODO Auto-generated constructor stub
+		this.mContext = mContext;
+	}
+
+	public void setLoggedInUserDetails() {
+		SQLiteLoginHandler db = new SQLiteLoginHandler(mContext);
+		HashMap<String, String> Users = db.getUserDetails();
+		Log.d("Hashmap of Loggedin user: ", Users.toString());
+		USERNAME = Users.get("username");
+		UID = Users.get("uid");
+		ROLE = Users.get("role");
+		NAME = Users.get("name");
+		
+
+	}
+
+	public String getUsername() {
+		return this.USERNAME;
+	}
+
+	public String getUID() {
+		return this.UID;
+	}
+
+	public String getUserRole() {
+		return this.ROLE;
+	}
+
+	public String getName() {
+		return this.NAME;
+	}
+
+}

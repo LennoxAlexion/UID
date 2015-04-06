@@ -1,0 +1,107 @@
+package DAOs;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import Adapters.DropDownAdapter;
+import DTOs.Roles;
+import Utils.GetJSONFromUrl;
+import Utils.PostJSONFromUrl;
+import Utils.SQLiteHandler;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+public class GetUserLoginDetails extends AsyncTask<Void, Void, Void> {
+
+	private String url = "http://10.0.2.2/LoginHandler.php";
+
+	private String USERNAME = "username";
+	private String NAME= "name";
+	private String ROLE= "role";
+	private String UID = "uid";
+	private String TAG= "Tag";
+	private String ERROR= "error";
+	
+	
+	//private String url = "http://192.168.42.112/get_Roles.php";
+	
+	Context mContext;
+	List<NameValuePair> para;
+	
+	ArrayList<String> temp = new ArrayList<String>();
+	public GetUserLoginDetails(Context mContext, List<NameValuePair> params){
+		this.para=para;
+		this.mContext=mContext;
+	}
+
+	/*public void getRoles() {
+		try {
+			ArrayList<String> temp = new ArrayList<String>();
+			JSONArray data = new JSONArray(GetJSONUrl.getJSONUrl((url)));
+			for (int i = 0; i < data.length(); i++) {
+				JSONObject c = data.getJSONObject(i);
+				temp.add(c.getString("Role").toString());
+			}
+			Roles roles = new Roles();
+			roles.setRoles(temp);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}*/
+
+	@Override
+	protected Void doInBackground(Void... params) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		try {
+            JSONObject jObj = new JSONObject(PostJSONFromUrl.PostJSONUrl(url, this.para));
+            boolean error = jObj.getBoolean("error");
+            if (!error) {
+                // User successfully stored in MySQL
+                // Now store the user in sqlite
+                String uid = jObj.getString("uid");
+
+                JSONObject user = jObj.getJSONObject("user");
+                NAME = user.getString("name");
+                USERNAME = user.getString("username");
+                ROLE = user.getString("role");
+                
+                // Inserting row in users table
+                SQLiteHandler db= new SQLiteHandler(mContext);
+                db.addUser(USERNAME, NAME, UID, ROLE);
+                } else {
+
+                String errorMsg = jObj.getString("error_msg");
+                Toast.makeText(mContext,
+                        errorMsg, Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+		
+		
+		return null;
+	}
+	
+	
+	@Override
+	protected void onPostExecute(Void result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+		
+		
+	}
+
+}

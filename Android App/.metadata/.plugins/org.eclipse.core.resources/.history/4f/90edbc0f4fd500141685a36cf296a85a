@@ -1,0 +1,35 @@
+package aaap.uid_project.Activities;
+
+import Utils.SessionManager;
+import aaap.uid_project.R;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+
+public class SecondPage extends Activity{
+
+	private Button LogoutB;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	setContentView(R.layout.sec_page);
+	LogoutB = (Button) findViewById(R.id.Button_Logout);
+	
+	final SessionManager session = new SessionManager(getApplicationContext());
+	LogoutB.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			session.setLogin(false);
+			
+			
+		}
+	});
+	
+	
+	}
+}
